@@ -1,0 +1,87 @@
+.film {
+
+    &--label {
+        font-weight: 600;
+        font-size: 22px;
+        margin: 10px;
+    }
+
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(345px, 1fr));
+        row-gap: 50px;
+    }
+
+    &--card {
+        background-color: var(--color-dark-accent);
+        border-radius: var(--border-radius);
+        width: 345px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-direction: column;
+        transition: all 0.3s ease;
+        transform-origin: center;
+
+        &__preview img {
+            border-radius: 20px 20px 0 0;
+        }
+
+        &__down {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 20px 20px 20px;
+
+            &--primary {
+                display: flex;
+                justify-content: space-between;
+                font-size: 18px;
+
+                &--year {
+                    color: var(--color-green);
+                }
+            }
+
+            &--secondary {
+                display: flex;
+                justify-content: space-between;
+                font-weight: 200;
+                font-size: 14px;
+
+                &--hd {
+                    border: 1px solid var(--color-white);
+                    width: 40px;
+                    text-align: center;
+                }
+
+                &--stats {
+                    display: flex;
+                    gap: 30px;
+
+                    &--time {
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                    }
+
+                    &--rate {
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                    }
+                }
+            }
+        }
+
+        &:hover {
+            transform: scale(1.07);
+            box-shadow:
+                -15px 0 50px -10px rgba(0, 0, 0, 0.5),
+                15px 0 50px -10px rgba(0, 0, 0, 0.3),
+                0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            cursor: pointer;
+        }
+    }
+}

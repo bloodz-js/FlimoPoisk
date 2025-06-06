@@ -1,0 +1,370 @@
+@charset "UTF-8";
+/**
+  Нормализация блочной модели
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/**
+  Убираем внутренние отступы слева тегам списков,
+  у которых есть атрибут class
+ */
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+/**
+  Убираем внешние отступы body и двум другим тегам,
+  у которых есть атрибут class
+ */
+body,
+:where(blockquote, figure):where([class]) {
+  margin: 0;
+}
+
+/**
+  Убираем внешние отступы вертикали нужным тегам,
+  у которых есть атрибут class
+ */
+:where(h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  margin-left: 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+  Убираем стандартный маркер маркированному списку,
+  у которого есть атрибут class
+ */
+:where(ul[class]) {
+  list-style: none;
+}
+
+/**
+  Обнуляем вертикальные внешние отступы параграфа,
+  объявляем локальную переменную для внешнего отступа вниз,
+  чтобы избежать взаимодействие с более сложным селектором
+ */
+p {
+  --paragraphMarginBottom: 24px;
+  margin-block: 0;
+}
+
+/**
+  Внешний отступ вниз для параграфа без атрибута class,
+  который расположен не последним среди своих соседних элементов
+ */
+p:where(:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+/**
+  Упрощаем работу с изображениями
+ */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/**
+  Наследуем свойства шрифт для полей ввода
+ */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  /**
+   Пригодится в большинстве ситуаций
+   (когда, например, нужно будет "прижать" футер к низу сайта)
+  */
+  height: 100%;
+  /**
+   Плавный скролл
+  */
+  scroll-behavior: smooth;
+}
+
+body {
+  /**
+   Пригодится в большинстве ситуаций
+   (когда, например, нужно будет "прижать" футер к низу сайта)
+  */
+  min-height: 100%;
+  /**
+   Унифицированный интерлиньяж
+  */
+  line-height: 1.5;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+ */
+/* svg *[fill] { fill: currentColor }
+svg *[stroke] { stroke: currentColor } */
+/**
+  Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+ */
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+  Удаляем все анимации и переходы для людей,
+  которые предпочитают их не использовать
+ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../fonts/Montserrat-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --color-dark: #1E1E1E;
+  --color-dark-accent: rgba(0, 0, 0, 0.35);
+  --color-white: #FFFFFF;
+  --color-accent-white: #A0A0A0;
+  --color-green: #1DB954;
+  --shadow: 30px 0px 150px 50px black;
+  --padding-vertical: 12px 0;
+  --border-radius: 20px;
+  --font-family-base: "Montserrat", "sans-serif";
+  --transition-duration: 0.3;
+  --container-width: 95%;
+}
+
+.container {
+  width: var(--container-width);
+  margin-inline: auto;
+}
+
+body {
+  height: 100vh;
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-white);
+  background-color: var(--color-dark);
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+a,
+input,
+textarea,
+svg * {
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1 {
+  font-size: 32px;
+  margin: 0;
+}
+
+.header {
+  background-color: var(--color-dark-accent);
+  position: fixed;
+  padding: 5px 80px;
+  width: 100%;
+  z-index: 11;
+}
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__menu {
+  margin-left: auto;
+}
+.header__menu--list {
+  display: flex;
+  align-items: center;
+}
+.header__menu--item form {
+  width: 100%;
+}
+.header__search {
+  position: relative;
+  width: 100%;
+}
+.header__search input {
+  width: 100%;
+  height: 56px;
+  padding: 18px 56px 18px 24px;
+  border: 2px solid rgba(255, 255, 255, 0.03);
+  border-radius: var(--border-radius);
+  color: var(--color-white);
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.header__search button {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 56px;
+  width: 56px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.header__search button svg {
+  width: 25px;
+  height: 26px;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--color-white);
+}
+
+.content {
+  padding: 150px 0 0 0;
+}
+
+.film--label {
+  font-weight: 600;
+  font-size: 22px;
+  margin: 10px;
+}
+.film__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(345px, 1fr));
+  row-gap: 50px;
+}
+.film--card {
+  background-color: var(--color-dark-accent);
+  border-radius: var(--border-radius);
+  width: 345px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+.film--card__preview img {
+  border-radius: 20px 20px 0 0;
+}
+.film--card__down {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 20px 20px 20px;
+}
+.film--card__down--primary {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+}
+.film--card__down--primary--year {
+  color: var(--color-green);
+}
+.film--card__down--secondary {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 200;
+  font-size: 14px;
+}
+.film--card__down--secondary--hd {
+  border: 1px solid var(--color-white);
+  width: 40px;
+  text-align: center;
+}
+.film--card__down--secondary--stats {
+  display: flex;
+  gap: 30px;
+}
+.film--card__down--secondary--stats--time {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.film--card__down--secondary--stats--rate {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.film--card:hover {
+  transform: scale(1.07);
+  box-shadow: -15px 0 50px -10px rgba(0, 0, 0, 0.5), 15px 0 50px -10px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  cursor: pointer;
+}/*# sourceMappingURL=style.css.map */
