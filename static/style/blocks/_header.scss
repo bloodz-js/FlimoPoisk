@@ -1,10 +1,16 @@
 .header {
-    background-color: var(--color-dark-accent);
+    background: #000000;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0.83) 67%, rgba(0, 0, 0, 0.5) 85%, rgba(255, 255, 255, 0) 100%);
     position: fixed;
     padding: 5px 80px;
     width: 100%;
     z-index: 11;
 
+
+    &__logo {
+        display: flex;
+        gap: 5px;
+    }
 
     &__inner {
         display: flex;

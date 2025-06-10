@@ -4,37 +4,38 @@ const moviesContainer = document.querySelector('.film__list');
 async function fetchMovie() {
     try {
         const response = await fetch(
-            `https://api.kinopoisk.dev/v1.4/movie?page=1&limit=10&sortField=votes.kp&sortType=-1`, {
+            `https://api.kinopoisk.dev/v1.4/movie?page=1&limit=20&sortField=votes.kp&sortType=-1`, {
             headers: {
                 'X-API-KEY': apiKey,
             },
         });
 
         if (!response.ok) {
-            throw new error(`Ошибка HTTP запроса ${response.status}`);
+            throw new Error(`Ошибка HTTP запроса ${response.status}`);
         }
 
         const data = await response.json();
         if (!data.docs || data.docs.length === 0) {
-            throw new error(`Фильм не найден`);
+            throw new Error(`Фильм не найден`);
         }
 
         displayMovies(data.docs);
 
     } catch (Error) {
         moviesContainer.innerHTML = `<div class="errorFilmContainer">
-        Не удалось загрузить фильмы: ${Error.messege}
+        Не удалось загрузить фильмы: ${Error.message}
         </div>`;
     }
 }
 
 function displayMovies(movies) {
-
     moviesContainer.innerHTML = '';
 
     movies.forEach(movie => {
         const movieCard = document.createElement('li');
         movieCard.className = 'film__item';
+
+        movieCard.dataset.movieId = movie.id;
 
         movieCard.innerHTML = `
             <article class="film--card">
@@ -75,8 +76,16 @@ function displayMovies(movies) {
             </article>
             `;
 
+        movieCard.addEventListener('click', (e) => {
+
+            localStorage.setItem('selectedMovieId', movie.id);
+            window.location.href = 'info.html';
+        });
+
         moviesContainer.appendChild(movieCard);
     });
+
+
 };
 
 const minToEpisode = (movie) => {
@@ -88,8 +97,6 @@ const minToEpisode = (movie) => {
     }
 };
 
-function seriesSkl() {
 
-}
 
 document.addEventListener('DOMContentLoaded', fetchMovie);

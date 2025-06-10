@@ -1,0 +1,11 @@
+.section {
+
+    &__button--back {
+        display: flex;
+        align-items: center;
+        margin-bottom: 50px;
+        cursor: pointer;
+        width: 90px;
+        height: 40px;
+    }
+}
