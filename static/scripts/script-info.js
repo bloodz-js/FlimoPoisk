@@ -39,14 +39,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-const minToEpisode = (movie) => {
+/*const minToEpisode = (movie) => {
     if (movie.type === "movie") {
         return movie.movieLength ? `${movie.movieLength} Мин` : `Н/Д`;
     } else if (movie.type === "tv-series") {
         return `${movie.seriesLength} Мин серия`;
 
     }
-};
+};*/
 
 const renderMovieInfo = (movie) => {
     document.querySelector('.info__hero--name').textContent = movie.name;
@@ -65,7 +65,7 @@ const renderMovieInfo = (movie) => {
 
     const textEl = document.querySelector('.info__hero--name');
     const words = textEl.textContent.split(' ');
-    if (words.length > 0) {
+    if (words.length > 1) {
         const lastWord = words.pop();
         const restOfText = words.join(' ');
         textEl.innerHTML = `${restOfText} <span class="lastWord">${lastWord}</span>`
@@ -79,7 +79,7 @@ const renderMovieInfo = (movie) => {
     genresContainer.innerHTML = movie.genres?.map(genre => genre.name)
         .join(', ') || '';
 
-    document.querySelector('.info__hero--time--p').textContent = minToEpisode(movie);
+    document.querySelector('.info__hero--time--p').textContent = epCount(movie) || 'Н/Д';
 
     const background = document.querySelector('.fullscreen-background');
     background.src = movie.backdrop?.url || '';
@@ -96,6 +96,7 @@ const renderMovieInfo = (movie) => {
     } else {
         trailerBtn.disabled = true;
         trailerBtn.style.opacity = '0.6';
+        trailerBtn.classList.remove('hoverBtn');
     }
 
 }
@@ -105,7 +106,7 @@ backBtn.addEventListener('click', () => {
     window.location.href = 'index.html';
 });
 
-function shareMovie(movie) {
+function shareMovie() {
     const shareBtn = document.querySelector('.info__hero--action__share');
     shareBtn.addEventListener('click', () => {
         const movieId = localStorage.getItem('selectedMovieId');
@@ -129,4 +130,29 @@ function shareMovie(movie) {
                 notification.textContent = 'Ошибка копирования!';
             });
     });
+}
+
+const epCount = (movie) => {
+    if (movie.seasonsInfo && movie.seasonsInfo.length > 0) {
+        const totalEp = movie.seasonsInfo.reduce(
+            (sum, season) => sum + (season.episodesCount || 0),
+            0
+        );
+
+        const lastDigit = totalEp % 10;
+        const isTeen = totalEp > 11 && totalEp <= 14;
+        let wordForm = 'серий';
+
+        if (!isTeen) {
+            if (lastDigit === 1) {
+                wordForm = 'серия';
+            } else if (lastDigit >= 2 && lastDigit <= 4) {
+                wordForm = 'серия';
+            }
+        }
+
+        return `${totalEp} ${wordForm}`;
+    } else if (movie.type === "movie") {
+        return movie.movieLength ? `${movie.movieLength} Мин` : `Н/Д`;
+    }
 }

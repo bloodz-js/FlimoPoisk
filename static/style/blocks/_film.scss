@@ -25,6 +25,7 @@
 
         &__preview img {
             border-radius: 20px 20px 0 0;
+            height: 195px;
         }
 
         &__down {
@@ -38,8 +39,15 @@
                 justify-content: space-between;
                 font-size: 18px;
 
+                &--name {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
                 &--year {
                     color: var(--color-green);
+                    padding-left: 40px;
                 }
             }
 

@@ -68,3 +68,12 @@
         opacity: 0;
     }
 }
+
+.hoverBtn:hover {
+    cursor: pointer;
+    transform: scale(1.07);
+}
+
+.error {
+    color: red;
+}
