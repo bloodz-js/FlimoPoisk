@@ -15,34 +15,6 @@
 - API КиноПоиска (бесплатная версия)
 
 ## 📁 Структура проекта
-├── index.html
-├── static
-    ├── fonts
-        ├── Montserrat-ExtraLight.woff2
-        ├── Montserrat-Medium.woff2
-        ├── Montserrat-Medium.woff2
-        ├── Montserrat-SemiBold.woff2
-    ├── image
-        ├── alt.jpg
-        ├── logo.svg
-    ├── scripts
-        ├── script-info.js
-        ├── script.js
-    ├── style
-        ├── blocks
-            ├── _button.scss
-            ├── _content.scss
-            ├── _film.scss
-            ├── _header.scss
-            ├── _hero.scss
-            ├── _info.scss
-            ├── _section.scss
-        ├── _fonts.scss
-        ├── _globals.scss
-        ├── _normalize.scss
-        ├── _utils.scss
-        ├── _variables.scss
-        ├── style.css
-        ├── style.css.map
-        ├── style.scss
-└── README.md
+index.html
+static
+README.md
